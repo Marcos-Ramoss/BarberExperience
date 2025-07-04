@@ -1,15 +1,19 @@
 package com.barberexperience.domain.valueobjects;
 
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Embeddable
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Endereco {
-    private final String rua;
-    private final String numero;
-    private final String bairro;
-    private final String cidade;
-    private final String estado;
-    private final String cep;
+    private String rua;
+    private String numero;
+    private String bairro;
+    private String cidade;
+    private String estado;
+    private String cep;
 } 
