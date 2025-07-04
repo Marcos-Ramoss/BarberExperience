@@ -6,7 +6,6 @@ import com.barberexperience.infrastructure.persistence.entities.ProfissionalEnti
 import com.barberexperience.infrastructure.persistence.mappers.ProfissionalMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
