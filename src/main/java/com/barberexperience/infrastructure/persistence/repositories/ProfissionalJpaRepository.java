@@ -1,6 +1,6 @@
 package com.barberexperience.infrastructure.persistence.repositories;
 
-import com.barberexperience.domain.entities.Profissional;
+import com.barberexperience.domain.ProfissionalDomain;
 import com.barberexperience.domain.repositories.ProfissionalRepository;
 import com.barberexperience.infrastructure.persistence.entities.ProfissionalEntity;
 import com.barberexperience.infrastructure.persistence.mappers.ProfissionalMapper;
@@ -18,20 +18,20 @@ public class ProfissionalJpaRepository implements ProfissionalRepository {
     private final ProfissionalMapper mapper;
     
     @Override
-    public Profissional save(Profissional profissional) {
+    public ProfissionalDomain save(ProfissionalDomain profissional) {
         ProfissionalEntity entity = mapper.toEntity(profissional);
         ProfissionalEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);
     }
     
     @Override
-    public Optional<Profissional> findById(Long id) {
+    public Optional<ProfissionalDomain> findById(Long id) {
         return springDataRepository.findById(id)
                 .map(mapper::toDomain);
     }
     
     @Override
-    public List<Profissional> findAll() {
+    public List<ProfissionalDomain> findAll() {
         return springDataRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)

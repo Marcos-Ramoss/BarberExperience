@@ -1,5 +1,6 @@
 package com.barberexperience.application.usecases.barbearia;
 
+import com.barberexperience.application.gattewars.barbearia.ExcluirBarbeariaUseCase;
 import com.barberexperience.domain.repositories.BarbeariaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

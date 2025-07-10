@@ -1,5 +1,6 @@
 package com.barberexperience.application.usecases.profissional;
 
+import com.barberexperience.application.gattewars.profissional.ExcluirProfissionalUseCase;
 import com.barberexperience.domain.repositories.ProfissionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

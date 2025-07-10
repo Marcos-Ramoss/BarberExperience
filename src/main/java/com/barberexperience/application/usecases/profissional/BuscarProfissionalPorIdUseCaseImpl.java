@@ -1,6 +1,7 @@
 package com.barberexperience.application.usecases.profissional;
 
-import com.barberexperience.domain.entities.Profissional;
+import com.barberexperience.application.gattewars.profissional.BuscarProfissionalPorIdUseCase;
+import com.barberexperience.domain.ProfissionalDomain;
 import com.barberexperience.domain.repositories.ProfissionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class BuscarProfissionalPorIdUseCaseImpl implements BuscarProfissionalPor
     private final ProfissionalRepository profissionalRepository;
     
     @Override
-    public Optional<Profissional> execute(Long id) {
+    public Optional<ProfissionalDomain> execute(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ID do profissional é obrigatório");
         }

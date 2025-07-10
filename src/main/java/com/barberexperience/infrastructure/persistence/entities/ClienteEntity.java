@@ -46,8 +46,9 @@ public class ClienteEntity {
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
     
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AgendamentoEntity> agendamentos = new ArrayList<>();
+    // Relacionamento temporariamente removido para resolver erro de exclusão
+    // @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private List<AgendamentoEntity> agendamentos = new ArrayList<>();
     
     @PrePersist
     protected void onCreate() {

@@ -1,6 +1,6 @@
 package com.barberexperience.infrastructure.persistence.repositories;
 
-import com.barberexperience.domain.entities.Cliente;
+import com.barberexperience.domain.ClienteDomain;
 import com.barberexperience.domain.repositories.ClienteRepository;
 import com.barberexperience.infrastructure.persistence.entities.ClienteEntity;
 import com.barberexperience.infrastructure.persistence.mappers.ClienteMapper;
@@ -19,20 +19,20 @@ public class ClienteJpaRepository implements ClienteRepository {
     private final ClienteMapper mapper;
     
     @Override
-    public Cliente save(Cliente cliente) {
+    public ClienteDomain save(ClienteDomain cliente) {
         ClienteEntity entity = mapper.toEntity(cliente);
         ClienteEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);
     }
     
     @Override
-    public Optional<Cliente> findById(Long id) {
+    public Optional<ClienteDomain> findById(Long id) {
         return springDataRepository.findById(id)
                 .map(mapper::toDomain);
     }
     
     @Override
-    public List<Cliente> findAll() {
+    public List<ClienteDomain> findAll() {
         return springDataRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)

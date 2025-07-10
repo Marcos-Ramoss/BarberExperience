@@ -1,12 +1,14 @@
 package com.barberexperience.domain.repositories;
 
-import com.barberexperience.domain.entities.Barbearia;
 import java.util.Optional;
+
+import com.barberexperience.domain.BarbeariaDomain;
+
 import java.util.List;
 
 public interface BarbeariaRepository {
-    Optional<Barbearia> findById(Long id);
-    List<Barbearia> findAll();
-    Barbearia save(Barbearia barbearia);
+    Optional<BarbeariaDomain> findById(Long id);
+    List<BarbeariaDomain> findAll();
+    BarbeariaDomain save(BarbeariaDomain barbearia);
     void deleteById(Long id);
 } 

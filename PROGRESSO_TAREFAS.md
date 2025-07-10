@@ -52,12 +52,17 @@
 
 ## 🔄 Próximas Tarefas
 
-### Tarefa 2.2 - Continuação  ✅ CONCLUÍDA
+### Tarefa 2.5 - Configuração do Banco de Dados
+- [ ] Configurar Flyway para migrações
+- [ ] Criar scripts de migração iniciais
+- [ ] Configurar conexão com MySQL
+- [ ] Testar conexão e migrações
 
-- [ x] Criar mappers para as outras entidades (Profissional, Cliente, Servico, Agendamento)
-- [x ] Criar repositórios Spring Data para as outras entidades
-- [ x] Criar repositórios JPA para as outras entidades
-- [ x] Configurar relacionamentos entre entidades
+### Tarefa 2.6 - Testes da API
+- [ ] Testar endpoints no Swagger UI
+- [ ] Criar dados de teste
+- [ ] Validar fluxo completo de agendamento
+- [ ] Testar validações de negócio
 
 ### Tarefa 2.3 - Implementação dos Use Cases na Camada de Aplicação ✅ CONCLUÍDA
 - [x] Criados casos de uso para Barbearia (Interface + Implementação):
@@ -79,32 +84,48 @@
   - [x] Validações de negócio nos use cases
   - [x] DTOs de request para entrada de dados
 
-### Tarefa 2.4 - Implementação dos Controllers na Camada de Apresentação
-- [ ] Criar controllers REST
-- [ ] Implementar DTOs de entrada e saída
-- [ ] Configurar validações
-- [ ] Implementar tratamento de erros
+### Tarefa 2.4 - Implementação dos Controllers na Camada de Apresentação ✅ CONCLUÍDA
+- [x] Criados controllers REST com Swagger:
+  - [x] `BarbeariaController` - CRUD completo de barbearias
+  - [x] `ProfissionalController` - CRUD completo de profissionais
+  - [x] `AgendamentoController` - Criação de agendamentos
+- [x] Implementados DTOs de resposta:
+  - [x] `BarbeariaResponseDto` - com endereço e horário de funcionamento
+  - [x] `ProfissionalResponseDto` - com especialidades
+  - [x] `AgendamentoResponseDto` - com cliente, profissional e serviços
+  - [x] `ErrorResponseDto` - para tratamento de erros
+- [x] Configurado Swagger/OpenAPI:
+  - [x] `SwaggerConfig` - configuração personalizada da API
+  - [x] Anotações completas nos controllers
+  - [x] Documentação de todos os endpoints
+- [x] Implementado tratamento de erros:
+  - [x] `GlobalExceptionHandler` - handler global de exceções
+  - [x] Tratamento de `IllegalArgumentException`
+  - [x] Tratamento de exceções genéricas
+- [x] **PROJETO COMPILA COM SUCESSO** ✅ (66 arquivos compilados)
 
 ## 📁 Estrutura Atual do Projeto
 
 ```
 src/main/java/com/barberexperience/
 ├── domain/
-│   ├── entities/          ✅ Criadas
-│   ├── valueobjects/      ✅ Criados
-│   ├── repositories/      ✅ Interfaces criadas
-│   └── services/          ⏳ Pendente
+│   ├── entities/          ✅ Criadas (5 entidades)
+│   ├── valueobjects/      ✅ Criados (5 value objects)
+│   └── repositories/      ✅ Interfaces criadas (5 repositórios)
 ├── application/
-│   ├── usecases/          ⏳ Pendente
-│   ├── dtos/              ⏳ Pendente
-│   └── services/          ⏳ Pendente
+│   └── usecases/          ✅ Criados (9 use cases + implementações)
+│       ├── barbearia/     ✅ 4 use cases
+│       ├── profissional/  ✅ 4 use cases
+│       └── agendamento/   ✅ 1 use case
 ├── infrastructure/
 │   └── persistence/
-│       ├── entities/      ✅ Criadas
-│       ├── repositories/  🔄 Em andamento
-│       └── mappers/       🔄 Em andamento
+│       ├── entities/      ✅ Criadas (5 entidades JPA)
+│       ├── repositories/  ✅ Criados (10 repositórios)
+│       └── mappers/       ✅ Criados (5 mappers)
 └── presentation/
-    └── controllers/       ⏳ Pendente
+    ├── controllers/       ✅ Criados (3 controllers REST)
+    ├── config/           ✅ Criado (SwaggerConfig)
+    └── dtos/             ✅ Criados (4 DTOs de resposta)
 ```
 
 ## 🎯 Princípios Clean Architecture Aplicados

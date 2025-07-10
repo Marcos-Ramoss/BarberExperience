@@ -1,18 +1,19 @@
 package com.barberexperience.infrastructure.persistence.mappers;
 
 import org.springframework.stereotype.Component;
-import com.barberexperience.domain.entities.Servico;
+
+import com.barberexperience.domain.ServicoDomain;
 import com.barberexperience.infrastructure.persistence.entities.ServicoEntity;
 
 @Component
 public class ServicoMapper {
     
-    public Servico toDomain(ServicoEntity entity) {
+    public ServicoDomain toDomain(ServicoEntity entity) {
         if (entity == null) {
             return null;
         }
         
-        return Servico.builder()
+        return ServicoDomain.builder()
                 .id(entity.getId())
                 .nome(entity.getNome())
                 .preco(entity.getPreco())
@@ -20,7 +21,7 @@ public class ServicoMapper {
                 .build();
     }
     
-    public ServicoEntity toEntity(Servico servico) {
+    public ServicoEntity toEntity(ServicoDomain servico) {
         if (servico == null) {
             return null;
         }

@@ -50,9 +50,8 @@ public class BarbeariaEntity {
     
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "logradouro", column = @Column(name = "logradouro")),
+        @AttributeOverride(name = "rua", column = @Column(name = "logradouro")),
         @AttributeOverride(name = "numero", column = @Column(name = "numero")),
-        @AttributeOverride(name = "complemento", column = @Column(name = "complemento")),
         @AttributeOverride(name = "bairro", column = @Column(name = "bairro")),
         @AttributeOverride(name = "cidade", column = @Column(name = "cidade")),
         @AttributeOverride(name = "estado", column = @Column(name = "estado")),
@@ -62,9 +61,8 @@ public class BarbeariaEntity {
     
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "horaAbertura", column = @Column(name = "hora_abertura")),
-        @AttributeOverride(name = "horaFechamento", column = @Column(name = "hora_fechamento")),
-        @AttributeOverride(name = "diasFuncionamento", column = @Column(name = "dias_funcionamento"))
+        @AttributeOverride(name = "abertura", column = @Column(name = "hora_abertura")),
+        @AttributeOverride(name = "fechamento", column = @Column(name = "hora_fechamento"))
     })
     private HorarioFuncionamento horarioFuncionamento;
     

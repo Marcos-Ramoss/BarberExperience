@@ -1,6 +1,7 @@
 package com.barberexperience.application.usecases.profissional;
 
-import com.barberexperience.domain.entities.Profissional;
+import com.barberexperience.application.gattewars.profissional.ListarProfissionaisUseCase;
+import com.barberexperience.domain.ProfissionalDomain;
 import com.barberexperience.domain.repositories.ProfissionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class ListarProfissionaisUseCaseImpl implements ListarProfissionaisUseCas
     private final ProfissionalRepository profissionalRepository;
     
     @Override
-    public List<Profissional> execute() {
+    public List<ProfissionalDomain> execute() {
         return profissionalRepository.findAll();
     }
 } 

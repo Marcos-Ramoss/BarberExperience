@@ -1,12 +1,14 @@
 package com.barberexperience.domain.repositories;
 
-import com.barberexperience.domain.entities.Servico;
 import java.util.Optional;
+
+import com.barberexperience.domain.ServicoDomain;
+
 import java.util.List;
 
 public interface ServicoRepository {
-    Optional<Servico> findById(Long id);
-    List<Servico> findAll();
-    Servico save(Servico servico);
+    Optional<ServicoDomain> findById(Long id);
+    List<ServicoDomain> findAll();
+    ServicoDomain save(ServicoDomain servico);
     void deleteById(Long id);
 } 

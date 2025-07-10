@@ -1,9 +1,9 @@
 package com.barberexperience.infrastructure.persistence.mappers;
 
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-import com.barberexperience.domain.entities.Agendamento;
+
+import com.barberexperience.domain.AgendamentoDomain;
 import com.barberexperience.infrastructure.persistence.entities.AgendamentoEntity;
 import lombok.RequiredArgsConstructor;
 
@@ -13,24 +13,25 @@ public class AgendamentoMapper {
     
     private final ClienteMapper clienteMapper;
     private final ProfissionalMapper profissionalMapper;
-    private final ServicoMapper servicoMapper;
+    private final BarbeariaMapper barbeariaMapper;
     
-    public Agendamento toDomain(AgendamentoEntity entity) {
+    public AgendamentoDomain toDomain(AgendamentoEntity entity) {
         if (entity == null) {
             return null;
         }
         
-        return Agendamento.builder()
+        return AgendamentoDomain.builder()
                 .id(entity.getId())
                 .cliente(clienteMapper.toDomain(entity.getCliente()))
                 .profissional(profissionalMapper.toDomain(entity.getProfissional()))
-                .servicos(List.of(servicoMapper.toDomain(entity.getServico()))) // Simplificação: um agendamento tem um serviço
-                .horario(entity.getDataHora())
+                .barbearia(barbeariaMapper.toDomain(entity.getBarbearia()))
+                .dataHora(entity.getDataHora())
                 .status(entity.getStatus())
+                .observacoes(entity.getObservacoes())
                 .build();
     }
     
-    public AgendamentoEntity toEntity(Agendamento agendamento) {
+    public AgendamentoEntity toEntity(AgendamentoDomain agendamento) {
         if (agendamento == null) {
             return null;
         }
@@ -39,14 +40,10 @@ public class AgendamentoMapper {
         entity.setId(agendamento.getId());
         entity.setCliente(clienteMapper.toEntity(agendamento.getCliente()));
         entity.setProfissional(profissionalMapper.toEntity(agendamento.getProfissional()));
-        
-        // Simplificação: pega o primeiro serviço da lista
-        if (agendamento.getServicos() != null && !agendamento.getServicos().isEmpty()) {
-            entity.setServico(servicoMapper.toEntity(agendamento.getServicos().get(0)));
-        }
-        
-        entity.setDataHora(agendamento.getHorario());
+        entity.setBarbearia(barbeariaMapper.toEntity(agendamento.getBarbearia()));
+        entity.setDataHora(agendamento.getDataHora());
         entity.setStatus(agendamento.getStatus());
+        entity.setObservacoes(agendamento.getObservacoes());
         
         return entity;
     }

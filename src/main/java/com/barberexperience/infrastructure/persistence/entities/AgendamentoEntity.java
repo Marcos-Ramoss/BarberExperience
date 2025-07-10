@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,12 +22,6 @@ public class AgendamentoEntity {
     
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
-    
-    @Column(name = "duracao_minutos", nullable = false)
-    private Integer duracaoMinutos;
-    
-    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
-    private BigDecimal valor;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -54,10 +47,6 @@ public class AgendamentoEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteEntity cliente;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "servico_id", nullable = false)
-    private ServicoEntity servico;
     
     @PrePersist
     protected void onCreate() {

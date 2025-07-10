@@ -1,6 +1,6 @@
 package com.barberexperience.infrastructure.persistence.repositories;
 
-import com.barberexperience.domain.entities.Agendamento;
+import com.barberexperience.domain.AgendamentoDomain;
 import com.barberexperience.domain.repositories.AgendamentoRepository;
 import com.barberexperience.infrastructure.persistence.entities.AgendamentoEntity;
 import com.barberexperience.infrastructure.persistence.mappers.AgendamentoMapper;
@@ -19,20 +19,20 @@ public class AgendamentoJpaRepository implements AgendamentoRepository {
     private final AgendamentoMapper mapper;
     
     @Override
-    public Agendamento save(Agendamento agendamento) {
+    public AgendamentoDomain save(AgendamentoDomain agendamento) {
         AgendamentoEntity entity = mapper.toEntity(agendamento);
         AgendamentoEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);
     }
     
     @Override
-    public Optional<Agendamento> findById(Long id) {
+    public Optional<AgendamentoDomain> findById(Long id) {
         return springDataRepository.findById(id)
                 .map(mapper::toDomain);
     }
     
     @Override
-    public List<Agendamento> findAll() {
+    public List<AgendamentoDomain> findAll() {
         return springDataRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)

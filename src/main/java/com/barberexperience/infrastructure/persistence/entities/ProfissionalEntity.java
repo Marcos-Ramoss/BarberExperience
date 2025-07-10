@@ -34,9 +34,11 @@ public class ProfissionalEntity {
     @Column(name = "email", length = 255)
     private String email;
     
+    @ElementCollection(targetClass = Especialidade.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "profissional_especialidades", joinColumns = @JoinColumn(name = "profissional_id"))
     @Enumerated(EnumType.STRING)
-    @Column(name = "especialidade", nullable = false)
-    private Especialidade especialidade;
+    @Column(name = "especialidade")
+    private List<Especialidade> especialidades = new ArrayList<>();
     
     @Column(name = "ativo", nullable = false)
     private Boolean ativo = true;
@@ -51,8 +53,9 @@ public class ProfissionalEntity {
     @JoinColumn(name = "barbearia_id", nullable = false)
     private BarbeariaEntity barbearia;
     
-    @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AgendamentoEntity> agendamentos = new ArrayList<>();
+    // Relacionamento temporariamente removido para resolver erro de exclusão
+    // @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private List<AgendamentoEntity> agendamentos = new ArrayList<>();
     
     @PrePersist
     protected void onCreate() {

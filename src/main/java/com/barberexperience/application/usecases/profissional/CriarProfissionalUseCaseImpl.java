@@ -1,6 +1,9 @@
 package com.barberexperience.application.usecases.profissional;
 
-import com.barberexperience.domain.entities.Profissional;
+import com.barberexperience.application.gattewars.profissional.CriarProfissionalUseCase;
+import com.barberexperience.domain.BarbeariaDomain;
+import com.barberexperience.domain.ProfissionalDomain;
+import com.barberexperience.domain.repositories.BarbeariaRepository;
 import com.barberexperience.domain.repositories.ProfissionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,29 +13,45 @@ import org.springframework.stereotype.Service;
 public class CriarProfissionalUseCaseImpl implements CriarProfissionalUseCase {
     
     private final ProfissionalRepository profissionalRepository;
+    private final BarbeariaRepository barbeariaRepository;
     
     @Override
-    public Profissional execute(CriarProfissionalRequest request) {
+    public ProfissionalDomain execute(CriarProfissionalRequest request) {
         // Validações de negócio
         validarDadosProfissional(request);
         
+        // Buscar a barbearia
+        BarbeariaDomain barbearia = barbeariaRepository.findById(request.barbeariaId())
+            .orElseThrow(() -> new IllegalArgumentException("Barbearia não encontrada com ID: " + request.barbeariaId()));
+        
         // Criação da entidade de domínio
-        Profissional profissional = Profissional.builder()
-                .nome(request.getNome())
-                .especialidades(request.getEspecialidades())
-                .build();
+        ProfissionalDomain profissional = ProfissionalDomain.builder().build();
+        profissional.atualizarNome(request.nome());
+        profissional.atualizarCpf(request.cpf());
+        profissional.atualizarTelefone(request.telefone());
+        profissional.atualizarEmail(request.email());
+        profissional.associarBarbearia(barbearia);
+        request.especialidades().forEach(profissional::adicionarEspecialidade);
         
         // Persistência via interface (não depende de implementação)
         return profissionalRepository.save(profissional);
     }
     
     private void validarDadosProfissional(CriarProfissionalRequest request) {
-        if (request.getNome() == null || request.getNome().trim().isEmpty()) {
+        if (request.nome() == null || request.nome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome do profissional é obrigatório");
         }
         
-        if (request.getEspecialidades() == null || request.getEspecialidades().isEmpty()) {
+        if (request.cpf() == null || request.cpf().trim().isEmpty()) {
+            throw new IllegalArgumentException("CPF do profissional é obrigatório");
+        }
+        
+        if (request.especialidades() == null || request.especialidades().isEmpty()) {
             throw new IllegalArgumentException("Pelo menos uma especialidade é obrigatória");
+        }
+        
+        if (request.barbeariaId() == null) {
+            throw new IllegalArgumentException("ID da barbearia é obrigatório");
         }
     }
 } 

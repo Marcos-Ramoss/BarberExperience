@@ -1,6 +1,6 @@
 package com.barberexperience.infrastructure.persistence.repositories;
 
-import com.barberexperience.domain.entities.Servico;
+import com.barberexperience.domain.ServicoDomain;
 import com.barberexperience.domain.repositories.ServicoRepository;
 import com.barberexperience.infrastructure.persistence.entities.ServicoEntity;
 import com.barberexperience.infrastructure.persistence.mappers.ServicoMapper;
@@ -19,20 +19,20 @@ public class ServicoJpaRepository implements ServicoRepository {
     private final ServicoMapper mapper;
     
     @Override
-    public Servico save(Servico servico) {
+    public ServicoDomain save(ServicoDomain servico) {
         ServicoEntity entity = mapper.toEntity(servico);
         ServicoEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);
     }
     
     @Override
-    public Optional<Servico> findById(Long id) {
+    public Optional<ServicoDomain> findById(Long id) {
         return springDataRepository.findById(id)
                 .map(mapper::toDomain);
     }
     
     @Override
-    public List<Servico> findAll() {
+    public List<ServicoDomain> findAll() {
         return springDataRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)

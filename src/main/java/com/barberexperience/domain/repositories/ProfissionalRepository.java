@@ -1,12 +1,14 @@
 package com.barberexperience.domain.repositories;
 
-import com.barberexperience.domain.entities.Profissional;
 import java.util.Optional;
+
+import com.barberexperience.domain.ProfissionalDomain;
+
 import java.util.List;
 
 public interface ProfissionalRepository {
-    Optional<Profissional> findById(Long id);
-    List<Profissional> findAll();
-    Profissional save(Profissional profissional);
+    Optional<ProfissionalDomain> findById(Long id);
+    List<ProfissionalDomain> findAll();
+    ProfissionalDomain save(ProfissionalDomain profissional);
     void deleteById(Long id);
 } 

@@ -1,6 +1,7 @@
 package com.barberexperience.application.usecases.barbearia;
 
-import com.barberexperience.domain.entities.Barbearia;
+import com.barberexperience.application.gattewars.barbearia.BuscarBarbeariaPorIdUseCase;
+import com.barberexperience.domain.BarbeariaDomain;
 import com.barberexperience.domain.repositories.BarbeariaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class BuscarBarbeariaPorIdUseCaseImpl implements BuscarBarbeariaPorIdUseC
     private final BarbeariaRepository barbeariaRepository;
     
     @Override
-    public Optional<Barbearia> execute(Long id) {
+    public Optional<BarbeariaDomain> execute(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ID da barbearia é obrigatório");
         }

@@ -1,25 +1,25 @@
 package com.barberexperience.infrastructure.persistence.mappers;
 
-import com.barberexperience.domain.entities.Cliente;
+import com.barberexperience.domain.ClienteDomain;
 import com.barberexperience.infrastructure.persistence.entities.ClienteEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ClienteMapper {
     
-    public Cliente toDomain(ClienteEntity entity) {
+    public ClienteDomain toDomain(ClienteEntity entity) {
         if (entity == null) {
             return null;
         }
         
-        return Cliente.builder()
+        return ClienteDomain.builder()
                 .id(entity.getId())
                 .nome(entity.getNome())
                 .email(entity.getEmail())
                 .build();
     }
     
-    public ClienteEntity toEntity(Cliente cliente) {
+    public ClienteEntity toEntity(ClienteDomain cliente) {
         if (cliente == null) {
             return null;
         }

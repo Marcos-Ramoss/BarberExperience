@@ -1,6 +1,6 @@
 package com.barberexperience.infrastructure.persistence.repositories;
 
-import com.barberexperience.domain.entities.Barbearia;
+import com.barberexperience.domain.BarbeariaDomain;
 import com.barberexperience.domain.repositories.BarbeariaRepository;
 import com.barberexperience.infrastructure.persistence.entities.BarbeariaEntity;
 import com.barberexperience.infrastructure.persistence.mappers.BarbeariaMapper;
@@ -19,20 +19,20 @@ public class BarbeariaJpaRepository implements BarbeariaRepository {
     private final BarbeariaMapper mapper;
     
     @Override
-    public Barbearia save(Barbearia barbearia) {
+    public BarbeariaDomain save(BarbeariaDomain barbearia) {
         BarbeariaEntity entity = mapper.toEntity(barbearia);
         BarbeariaEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);
     }
     
     @Override
-    public Optional<Barbearia> findById(Long id) {
+    public Optional<BarbeariaDomain> findById(Long id) {
         return springDataRepository.findById(id)
                 .map(mapper::toDomain);
     }
     
     @Override
-    public List<Barbearia> findAll() {
+    public List<BarbeariaDomain> findAll() {
         return springDataRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)

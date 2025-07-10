@@ -1,27 +1,31 @@
 package com.barberexperience.infrastructure.persistence.mappers;
 
 import org.springframework.stereotype.Component;
-import com.barberexperience.domain.entities.Barbearia;
+
+import com.barberexperience.domain.BarbeariaDomain;
 import com.barberexperience.domain.valueobjects.NomeBarbearia;
 import com.barberexperience.infrastructure.persistence.entities.BarbeariaEntity;
 
 @Component
 public class BarbeariaMapper {
     
-    public Barbearia toDomain(BarbeariaEntity entity) {
+    public BarbeariaDomain toDomain(BarbeariaEntity entity) {
         if (entity == null) {
             return null;
         }
         
-        return Barbearia.builder()
+        return BarbeariaDomain.builder()
                 .id(entity.getId())
                 .nome(new NomeBarbearia(entity.getNome()))
+                .cnpj(entity.getCnpj())
+                .telefone(entity.getTelefone())
+                .email(entity.getEmail())
                 .endereco(entity.getEndereco())
                 .horarioFuncionamento(entity.getHorarioFuncionamento())
                 .build();
     }
     
-    public BarbeariaEntity toEntity(Barbearia barbearia) {
+    public BarbeariaEntity toEntity(BarbeariaDomain barbearia) {
         if (barbearia == null) {
             return null;
         }
@@ -29,6 +33,9 @@ public class BarbeariaMapper {
         BarbeariaEntity entity = new BarbeariaEntity();
         entity.setId(barbearia.getId());
         entity.setNome(barbearia.getNome().getValue());
+        entity.setCnpj(barbearia.getCnpj());
+        entity.setTelefone(barbearia.getTelefone());
+        entity.setEmail(barbearia.getEmail());
         entity.setEndereco(barbearia.getEndereco());
         entity.setHorarioFuncionamento(barbearia.getHorarioFuncionamento());
         
