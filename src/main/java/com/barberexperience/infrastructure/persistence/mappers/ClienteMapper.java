@@ -15,7 +15,10 @@ public class ClienteMapper {
         return ClienteDomain.builder()
                 .id(entity.getId())
                 .nome(entity.getNome())
+                .cpf(entity.getCpf())
+                .telefone(entity.getTelefone())
                 .email(entity.getEmail())
+                .dataNascimento(entity.getDataNascimento())
                 .build();
     }
     
@@ -27,7 +30,10 @@ public class ClienteMapper {
         ClienteEntity entity = new ClienteEntity();
         entity.setId(cliente.getId());
         entity.setNome(cliente.getNome());
+        entity.setCpf(cliente.getCpf());
+        entity.setTelefone(cliente.getTelefone());
         entity.setEmail(cliente.getEmail());
+        entity.setDataNascimento(cliente.getDataNascimento());
         
         return entity;
     }

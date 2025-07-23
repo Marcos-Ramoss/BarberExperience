@@ -35,16 +35,21 @@ public class AgendamentoMapper {
         if (agendamento == null) {
             return null;
         }
-        
         AgendamentoEntity entity = new AgendamentoEntity();
         entity.setId(agendamento.getId());
         entity.setCliente(clienteMapper.toEntity(agendamento.getCliente()));
         entity.setProfissional(profissionalMapper.toEntity(agendamento.getProfissional()));
-        entity.setBarbearia(barbeariaMapper.toEntity(agendamento.getBarbearia()));
+        // Ajuste crítico: setar o objeto BarbeariaEntity com o ID
+        if (agendamento.getBarbearia() != null && agendamento.getBarbearia().getId() != null) {
+            var barbeariaEntity = new com.barberexperience.infrastructure.persistence.entities.BarbeariaEntity();
+            barbeariaEntity.setId(agendamento.getBarbearia().getId());
+            entity.setBarbearia(barbeariaEntity);
+        } else {
+            entity.setBarbearia(null);
+        }
         entity.setDataHora(agendamento.getDataHora());
         entity.setStatus(agendamento.getStatus());
         entity.setObservacoes(agendamento.getObservacoes());
-        
         return entity;
     }
 } 
