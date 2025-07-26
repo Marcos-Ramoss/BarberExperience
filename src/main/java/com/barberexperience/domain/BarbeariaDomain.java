@@ -28,6 +28,16 @@ public class BarbeariaDomain {
    
 
     /**
+     * Atualiza o nome da barbearia.
+     */
+    public void atualizarNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio.");
+        }
+        this.nome = new NomeBarbearia(nome);
+    }
+
+    /**
      * Atualiza o CNPJ da barbearia.
      */
     public void atualizarCnpj(String cnpj) {

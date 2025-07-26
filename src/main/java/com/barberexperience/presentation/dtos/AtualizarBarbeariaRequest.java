@@ -1,13 +1,15 @@
 package com.barberexperience.presentation.dtos;
 
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "Request para criar uma nova barbearia")
-public record CriarBarbeariaRequest(
+@Schema(description = "Request para atualizar uma barbearia")
+public record AtualizarBarbeariaRequest(
     @Schema(description = "Nome da barbearia", example = "BarbaOn")
     String nome,
     
-    @Schema(description = "CNPJ da barbearia", example = "84.555.777/4200-01-73")
+    @Schema(description = "CNPJ da barbearia", example = "84.555.777/4200-01")
     String cnpj,
     
     @Schema(description = "Telefone da barbearia", example = "(92) 98411-2010")
@@ -34,9 +36,9 @@ public record CriarBarbeariaRequest(
     @Schema(description = "CEP do endereço", example = "69050-008")
     String cep,
     
-    @Schema(description = "Horário de abertura (formato HH:mm:ss)", example = "08:00:00")
-    String horaAbertura,
+    @Schema(description = "Horário de abertura (formato HH:mm:ss)", example = "08:00:00", type = "string")
+    LocalTime abertura,
     
-    @Schema(description = "Horário de fechamento (formato HH:mm:ss)", example = "18:00:00")
-    String horaFechamento
-) { }
+    @Schema(description = "Horário de fechamento (formato HH:mm:ss)", example = "18:00:00", type = "string")
+    LocalTime fechamento
+) {} 

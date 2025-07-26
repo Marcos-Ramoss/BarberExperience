@@ -41,4 +41,23 @@ public class BarbeariaMapper {
         
         return entity;
     }
+    
+    /**
+     * Método para atualizar uma entidade existente preservando campos de auditoria
+     */
+    public BarbeariaEntity updateEntity(BarbeariaDomain barbearia, BarbeariaEntity existingEntity) {
+        if (barbearia == null || existingEntity == null) {
+            return null;
+        }
+        
+        // Preservar campos de auditoria existentes
+        existingEntity.setNome(barbearia.getNome().getValue());
+        existingEntity.setCnpj(barbearia.getCnpj());
+        existingEntity.setTelefone(barbearia.getTelefone());
+        existingEntity.setEmail(barbearia.getEmail());
+        existingEntity.setEndereco(barbearia.getEndereco());
+        existingEntity.setHorarioFuncionamento(barbearia.getHorarioFuncionamento());
+        
+        return existingEntity;
+    }
 } 

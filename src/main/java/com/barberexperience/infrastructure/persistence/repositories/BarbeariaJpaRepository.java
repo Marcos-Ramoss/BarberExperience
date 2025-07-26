@@ -20,6 +20,18 @@ public class BarbeariaJpaRepository implements BarbeariaRepository {
     
     @Override
     public BarbeariaDomain save(BarbeariaDomain barbearia) {
+        if (barbearia.getId() != null) {
+            // Atualização: buscar entidade existente e atualizar
+            Optional<BarbeariaEntity> existingEntityOpt = springDataRepository.findById(barbearia.getId());
+            if (existingEntityOpt.isPresent()) {
+                BarbeariaEntity existingEntity = existingEntityOpt.get();
+                BarbeariaEntity updatedEntity = mapper.updateEntity(barbearia, existingEntity);
+                BarbeariaEntity savedEntity = springDataRepository.save(updatedEntity);
+                return mapper.toDomain(savedEntity);
+            }
+        }
+        
+        // Criação: criar nova entidade
         BarbeariaEntity entity = mapper.toEntity(barbearia);
         BarbeariaEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);

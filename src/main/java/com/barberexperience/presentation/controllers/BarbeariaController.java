@@ -5,6 +5,7 @@ import com.barberexperience.domain.BarbeariaDomain;
 import com.barberexperience.infrastructure.persistence.mappers.BarbeariaResponseMapper;
 import com.barberexperience.presentation.dtos.BarbeariaResponse;
 import com.barberexperience.presentation.dtos.CriarBarbeariaRequest;
+import com.barberexperience.presentation.dtos.AtualizarBarbeariaRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -28,6 +29,7 @@ public class BarbeariaController {
     private final BuscarBarbeariaPorIdUseCase buscarBarbeariaPorIdUseCase;
     private final ListarBarbeariasUseCase listarBarbeariasUseCase;
     private final ExcluirBarbeariaUseCase excluirBarbeariaUseCase;
+    private final AtualizarBarbeariaUseCase atualizarBarbeariaUseCase;
     
     @PostMapping
     @Operation(summary = "Criar uma nova barbearia")
@@ -54,6 +56,13 @@ public class BarbeariaController {
                 .collect(Collectors.toList());
         
         return ResponseEntity.ok(response);
+    }
+    
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar barbearia")
+    public ResponseEntity<BarbeariaResponse> atualizarBarbearia(@PathVariable Long id, @RequestBody AtualizarBarbeariaRequest request) {
+        BarbeariaDomain barbearia = atualizarBarbeariaUseCase.execute(id, request);
+        return ResponseEntity.ok(BarbeariaResponseMapper.toDto(barbearia));
     }
     
     @DeleteMapping("/{id}")
