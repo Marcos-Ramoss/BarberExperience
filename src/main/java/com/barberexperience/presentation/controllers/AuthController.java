@@ -15,11 +15,14 @@ import com.barberexperience.presentation.dtos.LoginRequestDto;
 import com.barberexperience.presentation.dtos.RegisterRequestDto;
 import com.barberexperience.presentation.security.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@Tag(name = "Autenticação")
 public class AuthController {
 
     private final UsuarioSpringDataRepository usuarioRepository;
@@ -27,6 +30,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/register")
+    @Operation(summary = "Registrar um novo usuário")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDto request) {
         if (usuarioRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username já existe");
@@ -42,6 +46,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Fazer login e obter token JWT")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
         Optional<UsuarioEntity> usuarioOpt = usuarioRepository.findByUsername(request.getUsername());
         if (usuarioOpt.isEmpty() || !passwordEncoder.matches(request.getPassword(), usuarioOpt.get().getPassword())) {
