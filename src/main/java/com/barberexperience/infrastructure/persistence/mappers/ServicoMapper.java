@@ -37,7 +37,8 @@ public class ServicoMapper {
         entity.setDescricao(servico.getDescricao());
         entity.setPreco(servico.getPreco());
         entity.setDuracaoMinutos(servico.getDuracaoMinutos());
-        entity.setAtivo(true); // ou conforme sua lógica
+        entity.setAtivo(true);
+        
         // Ajuste crítico: setar o objeto BarbeariaEntity
         if (servico.getBarbearia() != null && servico.getBarbearia().getId() != null) {
             BarbeariaEntity barbeariaEntity = new BarbeariaEntity();
@@ -46,6 +47,37 @@ public class ServicoMapper {
         } else {
             entity.setBarbearia(null);
         }
+        
+        // IMPORTANTE: Não definir dataCriacao e dataAtualizacao aqui
+        // Deixar que o @PrePersist e @PreUpdate do ServicoEntity cuidem disso
         return entity;
+    }
+    
+    /**
+     * Método para atualizar uma entidade existente preservando campos de auditoria
+     */
+    public ServicoEntity updateEntity(ServicoDomain servico, ServicoEntity existingEntity) {
+        if (servico == null || existingEntity == null) {
+            return null;
+        }
+        
+        // Preservar campos de auditoria existentes
+        existingEntity.setNome(servico.getNome());
+        existingEntity.setDescricao(servico.getDescricao());
+        existingEntity.setPreco(servico.getPreco());
+        existingEntity.setDuracaoMinutos(servico.getDuracaoMinutos());
+        existingEntity.setAtivo(true);
+        
+        // Atualizar barbearia se fornecida
+        if (servico.getBarbearia() != null && servico.getBarbearia().getId() != null) {
+            BarbeariaEntity barbeariaEntity = new BarbeariaEntity();
+            barbeariaEntity.setId(servico.getBarbearia().getId());
+            existingEntity.setBarbearia(barbeariaEntity);
+        }
+        
+        // dataCriacao permanece inalterada
+        // dataAtualizacao será atualizada automaticamente pelo @PreUpdate
+        
+        return existingEntity;
     }
 } 

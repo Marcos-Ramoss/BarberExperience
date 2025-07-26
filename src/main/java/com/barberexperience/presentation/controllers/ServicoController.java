@@ -5,6 +5,7 @@ import com.barberexperience.domain.ServicoDomain;
 import com.barberexperience.infrastructure.persistence.mappers.ServicoResponseMapper;
 import com.barberexperience.presentation.dtos.ServicoResponse;
 import com.barberexperience.presentation.dtos.CriarServicoRequest;
+import com.barberexperience.presentation.dtos.AtualizarServicoRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -28,6 +29,7 @@ public class ServicoController {
     private final BuscarServicoPorIdUseCase buscarServicoPorIdUseCase;
     private final ListarServicosUseCase listarServicosUseCase;
     private final ExcluirServicoUseCase excluirServicoUseCase;
+    private final AtualizarServicoUseCase atualizarServicoUseCase;
     
     @PostMapping
     @Operation(summary = "Criar um novo serviço")
@@ -54,6 +56,13 @@ public class ServicoController {
                 .collect(Collectors.toList());
         
         return ResponseEntity.ok(response);
+    }
+    
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar serviço")
+    public ResponseEntity<ServicoResponse> atualizarServico(@PathVariable Long id, @RequestBody AtualizarServicoRequest request) {
+        ServicoDomain servico = atualizarServicoUseCase.execute(id, request);
+        return ResponseEntity.ok(ServicoResponseMapper.toDto(servico));
     }
     
     @DeleteMapping("/{id}")

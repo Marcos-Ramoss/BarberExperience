@@ -20,6 +20,18 @@ public class ServicoJpaRepository implements ServicoRepository {
     
     @Override
     public ServicoDomain save(ServicoDomain servico) {
+        if (servico.getId() != null) {
+            // Atualização: buscar entidade existente e atualizar
+            Optional<ServicoEntity> existingEntityOpt = springDataRepository.findById(servico.getId());
+            if (existingEntityOpt.isPresent()) {
+                ServicoEntity existingEntity = existingEntityOpt.get();
+                ServicoEntity updatedEntity = mapper.updateEntity(servico, existingEntity);
+                ServicoEntity savedEntity = springDataRepository.save(updatedEntity);
+                return mapper.toDomain(savedEntity);
+            }
+        }
+        
+        // Criação: criar nova entidade
         ServicoEntity entity = mapper.toEntity(servico);
         ServicoEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);
