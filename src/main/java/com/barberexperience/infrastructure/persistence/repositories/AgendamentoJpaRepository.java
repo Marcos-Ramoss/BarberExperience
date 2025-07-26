@@ -20,6 +20,18 @@ public class AgendamentoJpaRepository implements AgendamentoRepository {
     
     @Override
     public AgendamentoDomain save(AgendamentoDomain agendamento) {
+        if (agendamento.getId() != null) {
+            // Atualização: buscar entidade existente e atualizar
+            Optional<AgendamentoEntity> existingEntityOpt = springDataRepository.findById(agendamento.getId());
+            if (existingEntityOpt.isPresent()) {
+                AgendamentoEntity existingEntity = existingEntityOpt.get();
+                AgendamentoEntity updatedEntity = mapper.updateEntity(agendamento, existingEntity);
+                AgendamentoEntity savedEntity = springDataRepository.save(updatedEntity);
+                return mapper.toDomain(savedEntity);
+            }
+        }
+        
+        // Criação: criar nova entidade
         AgendamentoEntity entity = mapper.toEntity(agendamento);
         AgendamentoEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);

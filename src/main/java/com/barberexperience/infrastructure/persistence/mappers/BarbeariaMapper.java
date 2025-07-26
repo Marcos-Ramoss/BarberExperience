@@ -14,9 +14,15 @@ public class BarbeariaMapper {
             return null;
         }
         
+        // Validar se o nome não é nulo ou vazio antes de criar o NomeBarbearia
+        NomeBarbearia nome = null;
+        if (entity.getNome() != null && !entity.getNome().trim().isEmpty()) {
+            nome = new NomeBarbearia(entity.getNome());
+        }
+        
         return BarbeariaDomain.builder()
                 .id(entity.getId())
-                .nome(new NomeBarbearia(entity.getNome()))
+                .nome(nome)
                 .cnpj(entity.getCnpj())
                 .telefone(entity.getTelefone())
                 .email(entity.getEmail())
@@ -32,7 +38,7 @@ public class BarbeariaMapper {
         
         BarbeariaEntity entity = new BarbeariaEntity();
         entity.setId(barbearia.getId());
-        entity.setNome(barbearia.getNome().getValue());
+        entity.setNome(barbearia.getNome() != null ? barbearia.getNome().getValue() : null);
         entity.setCnpj(barbearia.getCnpj());
         entity.setTelefone(barbearia.getTelefone());
         entity.setEmail(barbearia.getEmail());
@@ -51,7 +57,7 @@ public class BarbeariaMapper {
         }
         
         // Preservar campos de auditoria existentes
-        existingEntity.setNome(barbearia.getNome().getValue());
+        existingEntity.setNome(barbearia.getNome() != null ? barbearia.getNome().getValue() : null);
         existingEntity.setCnpj(barbearia.getCnpj());
         existingEntity.setTelefone(barbearia.getTelefone());
         existingEntity.setEmail(barbearia.getEmail());

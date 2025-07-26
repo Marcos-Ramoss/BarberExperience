@@ -120,4 +120,45 @@ public class AgendamentoDomain {
         }
         this.status = novoStatus;
     }
+    
+    /**
+     * Altera o cliente do agendamento.
+     */
+    public void alterarCliente(ClienteDomain novoCliente) {
+        if (novoCliente == null) {
+            throw new IllegalArgumentException("Cliente não pode ser nulo.");
+        }
+        this.cliente = novoCliente;
+    }
+    
+    /**
+     * Altera o profissional do agendamento.
+     */
+    public void alterarProfissional(ProfissionalDomain novoProfissional) {
+        if (novoProfissional == null) {
+            throw new IllegalArgumentException("Profissional não pode ser nulo.");
+        }
+        this.profissional = novoProfissional;
+    }
+    
+    /**
+     * Altera a barbearia do agendamento.
+     */
+    public void alterarBarbearia(BarbeariaDomain novaBarbearia) {
+        if (novaBarbearia == null) {
+            throw new IllegalArgumentException("Barbearia não pode ser nula.");
+        }
+        this.barbearia = novaBarbearia;
+    }
+    
+    /**
+     * Altera o serviço do agendamento (substitui a lista de serviços).
+     */
+    public void alterarServico(ServicoDomain novoServico) {
+        if (novoServico == null) {
+            throw new IllegalArgumentException("Serviço não pode ser nulo.");
+        }
+        this.servicos.clear();
+        this.servicos.add(novoServico);
+    }
 } 

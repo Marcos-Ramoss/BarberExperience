@@ -50,6 +50,39 @@ public class AgendamentoMapper {
         entity.setDataHora(agendamento.getDataHora());
         entity.setStatus(agendamento.getStatus());
         entity.setObservacoes(agendamento.getObservacoes());
+        
+        // IMPORTANTE: Não definir dataCriacao e dataAtualizacao aqui
+        // Deixar que o @PrePersist e @PreUpdate do AgendamentoEntity cuidem disso
+        
         return entity;
+    }
+    
+    /**
+     * Método para atualizar uma entidade existente preservando campos de auditoria
+     */
+    public AgendamentoEntity updateEntity(AgendamentoDomain agendamento, AgendamentoEntity existingEntity) {
+        if (agendamento == null || existingEntity == null) {
+            return null;
+        }
+        
+        // Preservar campos de auditoria existentes
+        existingEntity.setCliente(clienteMapper.toEntity(agendamento.getCliente()));
+        existingEntity.setProfissional(profissionalMapper.toEntity(agendamento.getProfissional()));
+        
+        // Atualizar barbearia se fornecida
+        if (agendamento.getBarbearia() != null && agendamento.getBarbearia().getId() != null) {
+            var barbeariaEntity = new com.barberexperience.infrastructure.persistence.entities.BarbeariaEntity();
+            barbeariaEntity.setId(agendamento.getBarbearia().getId());
+            existingEntity.setBarbearia(barbeariaEntity);
+        }
+        
+        existingEntity.setDataHora(agendamento.getDataHora());
+        existingEntity.setStatus(agendamento.getStatus());
+        existingEntity.setObservacoes(agendamento.getObservacoes());
+        
+        // dataCriacao permanece inalterada
+        // dataAtualizacao será atualizada automaticamente pelo @PreUpdate
+        
+        return existingEntity;
     }
 } 

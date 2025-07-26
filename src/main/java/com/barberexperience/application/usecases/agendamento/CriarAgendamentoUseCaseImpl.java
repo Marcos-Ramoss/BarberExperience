@@ -2,10 +2,12 @@ package com.barberexperience.application.usecases.agendamento;
 
 import com.barberexperience.application.gattewars.agendamento.CriarAgendamentoUseCase;
 import com.barberexperience.domain.AgendamentoDomain;
+import com.barberexperience.domain.BarbeariaDomain;
 import com.barberexperience.domain.ClienteDomain;
 import com.barberexperience.domain.ProfissionalDomain;
 import com.barberexperience.domain.ServicoDomain;
 import com.barberexperience.domain.repositories.AgendamentoRepository;
+import com.barberexperience.domain.repositories.BarbeariaRepository;
 import com.barberexperience.domain.repositories.ClienteRepository;
 import com.barberexperience.domain.repositories.ProfissionalRepository;
 import com.barberexperience.domain.repositories.ServicoRepository;
@@ -26,6 +28,7 @@ public class CriarAgendamentoUseCaseImpl implements CriarAgendamentoUseCase {
     private final AgendamentoRepository agendamentoRepository;
     private final ClienteRepository clienteRepository;
     private final ProfissionalRepository profissionalRepository;
+    private final BarbeariaRepository barbeariaRepository;
     private final ServicoRepository servicoRepository;
     
     @Override
@@ -36,6 +39,7 @@ public class CriarAgendamentoUseCaseImpl implements CriarAgendamentoUseCase {
         // Buscar entidades relacionadas
         ClienteDomain cliente = buscarCliente(request.clienteId());
         ProfissionalDomain profissional = buscarProfissional(request.profissionalId());
+        BarbeariaDomain barbearia = buscarBarbearia(request.barbeariaId());
         List<ServicoDomain> servicos = buscarServicos(request.servicoIds());
         
         // Validações de disponibilidade
@@ -45,6 +49,7 @@ public class CriarAgendamentoUseCaseImpl implements CriarAgendamentoUseCase {
         AgendamentoDomain agendamento = AgendamentoDomain.builder()
                 .cliente(cliente)
                 .profissional(profissional)
+                .barbearia(barbearia)
                 .servicos(servicos)
                 .status(StatusAgendamento.PENDENTE)
                 .build();
@@ -63,6 +68,10 @@ public class CriarAgendamentoUseCaseImpl implements CriarAgendamentoUseCase {
         
         if (request.profissionalId() == null) {
             throw new IllegalArgumentException("ID do profissional é obrigatório");
+        }
+        
+        if (request.barbeariaId() == null) {
+            throw new IllegalArgumentException("ID da barbearia é obrigatório");
         }
         
         if (request.servicoIds() == null || request.servicoIds().isEmpty()) {
@@ -89,6 +98,14 @@ public class CriarAgendamentoUseCaseImpl implements CriarAgendamentoUseCase {
             throw new IllegalArgumentException("Profissional não encontrado");
         }
         return profissional.get();
+    }
+    
+    private BarbeariaDomain buscarBarbearia(Long barbeariaId) {
+        Optional<BarbeariaDomain> barbearia = barbeariaRepository.findById(barbeariaId);
+        if (barbearia.isEmpty()) {
+            throw new IllegalArgumentException("Barbearia não encontrada");
+        }
+        return barbearia.get();
     }
     
     private List<ServicoDomain> buscarServicos(List<Long> servicoIds) {
