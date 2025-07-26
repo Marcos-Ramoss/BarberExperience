@@ -20,6 +20,18 @@ public class ClienteJpaRepository implements ClienteRepository {
     
     @Override
     public ClienteDomain save(ClienteDomain cliente) {
+        if (cliente.getId() != null) {
+            // Atualização: buscar entidade existente e atualizar
+            Optional<ClienteEntity> existingEntityOpt = springDataRepository.findById(cliente.getId());
+            if (existingEntityOpt.isPresent()) {
+                ClienteEntity existingEntity = existingEntityOpt.get();
+                ClienteEntity updatedEntity = mapper.updateEntity(cliente, existingEntity);
+                ClienteEntity savedEntity = springDataRepository.save(updatedEntity);
+                return mapper.toDomain(savedEntity);
+            }
+        }
+        
+        // Criação: criar nova entidade
         ClienteEntity entity = mapper.toEntity(cliente);
         ClienteEntity savedEntity = springDataRepository.save(entity);
         return mapper.toDomain(savedEntity);

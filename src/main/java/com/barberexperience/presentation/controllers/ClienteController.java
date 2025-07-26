@@ -4,11 +4,13 @@ import com.barberexperience.application.gattewars.cliente.BuscarClientePorIdUseC
 import com.barberexperience.application.gattewars.cliente.CriarClienteUseCase;
 import com.barberexperience.application.gattewars.cliente.ExcluirClienteUseCase;
 import com.barberexperience.application.gattewars.cliente.ListarClientesUseCase;
+import com.barberexperience.application.gattewars.cliente.AtualizarClienteUseCase;
 import com.barberexperience.application.usecases.cliente.*;
 import com.barberexperience.domain.ClienteDomain;
 import com.barberexperience.infrastructure.persistence.mappers.ClienteResponseMapper;
 import com.barberexperience.presentation.dtos.ClienteResponse;
 import com.barberexperience.presentation.dtos.CriarClienteRequest;
+import com.barberexperience.presentation.dtos.AtualizarClienteRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -32,6 +34,7 @@ public class ClienteController {
     private final BuscarClientePorIdUseCase buscarClientePorIdUseCase;
     private final ListarClientesUseCase listarClientesUseCase;
     private final ExcluirClienteUseCase excluirClienteUseCase;
+    private final AtualizarClienteUseCase atualizarClienteUseCase;
     
     @PostMapping
     @Operation(summary = "Criar um novo cliente")
@@ -58,6 +61,13 @@ public class ClienteController {
                 .collect(Collectors.toList());
         
         return ResponseEntity.ok(response);
+    }
+    
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar cliente")
+    public ResponseEntity<ClienteResponse> atualizarCliente(@PathVariable Long id, @RequestBody AtualizarClienteRequest request) {
+        ClienteDomain cliente = atualizarClienteUseCase.execute(id, request);
+        return ResponseEntity.ok(ClienteResponseMapper.toDto(cliente));
     }
     
     @DeleteMapping("/{id}")

@@ -37,4 +37,25 @@ public class ClienteMapper {
         
         return entity;
     }
+    
+    /**
+     * Método para atualizar uma entidade existente preservando campos de auditoria
+     */
+    public ClienteEntity updateEntity(ClienteDomain cliente, ClienteEntity existingEntity) {
+        if (cliente == null || existingEntity == null) {
+            return null;
+        }
+        
+        // Preservar campos de auditoria existentes
+        existingEntity.setNome(cliente.getNome());
+        existingEntity.setCpf(cliente.getCpf());
+        existingEntity.setTelefone(cliente.getTelefone());
+        existingEntity.setEmail(cliente.getEmail());
+        existingEntity.setDataNascimento(cliente.getDataNascimento());
+        
+        // dataCriacao permanece inalterada
+        // dataAtualizacao será atualizada automaticamente pelo @PreUpdate
+        
+        return existingEntity;
+    }
 } 
