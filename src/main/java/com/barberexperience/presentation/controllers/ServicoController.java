@@ -1,16 +1,13 @@
 package com.barberexperience.presentation.controllers;
 
-import com.barberexperience.application.gattewars.servico.BuscarServicoPorIdUseCase;
-import com.barberexperience.application.gattewars.servico.CriarServicoUseCase;
-import com.barberexperience.application.gattewars.servico.ExcluirServicoUseCase;
-import com.barberexperience.application.gattewars.servico.ListarServicosUseCase;
-import com.barberexperience.application.usecases.servico.*;
+import com.barberexperience.application.gattewars.servico.*;
 import com.barberexperience.domain.ServicoDomain;
 import com.barberexperience.infrastructure.persistence.mappers.ServicoResponseMapper;
 import com.barberexperience.presentation.dtos.ServicoResponse;
 import com.barberexperience.presentation.dtos.CriarServicoRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +21,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/servicos")
 @RequiredArgsConstructor
 @Tag(name = "Serviço")
+@SecurityRequirement(name = "bearerAuth")
 public class ServicoController {
     
     private final CriarServicoUseCase criarServicoUseCase;

@@ -1,14 +1,13 @@
 package com.barberexperience.presentation.controllers;
 
-import com.barberexperience.application.gattewars.profissional.BuscarProfissionalPorIdUseCase;
-import com.barberexperience.application.gattewars.profissional.CriarProfissionalUseCase;
-import com.barberexperience.application.gattewars.profissional.ExcluirProfissionalUseCase;
-import com.barberexperience.application.gattewars.profissional.ListarProfissionaisUseCase;
-import com.barberexperience.application.usecases.profissional.*;
+import com.barberexperience.application.gattewars.profissional.*;
 import com.barberexperience.domain.ProfissionalDomain;
 import com.barberexperience.infrastructure.persistence.mappers.ProfissionalResponseMapper;
 import com.barberexperience.presentation.dtos.ProfissionalResponse;
+import com.barberexperience.application.usecases.profissional.CriarProfissionalRequest;
+
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/profissionais")
 @RequiredArgsConstructor
 @Tag(name = "Profissional")
+@SecurityRequirement(name = "bearerAuth")
 public class ProfissionalController {
     
     private final CriarProfissionalUseCase criarProfissionalUseCase;

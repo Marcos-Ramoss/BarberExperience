@@ -11,6 +11,7 @@ import com.barberexperience.presentation.dtos.ClienteResponse;
 import com.barberexperience.presentation.dtos.CriarClienteRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/clientes")
 @RequiredArgsConstructor
 @Tag(name = "Cliente")
+@SecurityRequirement(name = "bearerAuth")
 public class ClienteController {
     
     private final CriarClienteUseCase criarClienteUseCase;

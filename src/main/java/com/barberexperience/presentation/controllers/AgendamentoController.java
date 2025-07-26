@@ -14,6 +14,7 @@ import com.barberexperience.presentation.dtos.AgendamentoResponse;
 import com.barberexperience.presentation.dtos.CriarAgendamentoRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/agendamentos")
 @RequiredArgsConstructor
 @Tag(name = "Agendamento")
+@SecurityRequirement(name = "bearerAuth")
 public class AgendamentoController {
     
     private final CriarAgendamentoUseCase criarAgendamentoUseCase;

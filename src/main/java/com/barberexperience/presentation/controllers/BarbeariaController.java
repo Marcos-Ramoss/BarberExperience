@@ -1,16 +1,13 @@
 package com.barberexperience.presentation.controllers;
 
-import com.barberexperience.application.gattewars.barbearia.BuscarBarbeariaPorIdUseCase;
-import com.barberexperience.application.gattewars.barbearia.CriarBarbeariaUseCase;
-import com.barberexperience.application.gattewars.barbearia.ExcluirBarbeariaUseCase;
-import com.barberexperience.application.gattewars.barbearia.ListarBarbeariasUseCase;
-import com.barberexperience.application.usecases.barbearia.*;
+import com.barberexperience.application.gattewars.barbearia.*;
 import com.barberexperience.domain.BarbeariaDomain;
 import com.barberexperience.infrastructure.persistence.mappers.BarbeariaResponseMapper;
 import com.barberexperience.presentation.dtos.BarbeariaResponse;
 import com.barberexperience.presentation.dtos.CriarBarbeariaRequest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +21,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/barbearias")
 @RequiredArgsConstructor
 @Tag(name = "Barbearia")
+@SecurityRequirement(name = "bearerAuth")
 public class BarbeariaController {
     
     private final CriarBarbeariaUseCase criarBarbeariaUseCase;
