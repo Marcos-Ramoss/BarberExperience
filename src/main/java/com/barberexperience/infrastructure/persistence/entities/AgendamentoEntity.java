@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "agendamentos")
@@ -47,6 +48,14 @@ public class AgendamentoEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteEntity cliente;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @JoinTable(
+        name = "agendamento_servicos",
+        joinColumns = @JoinColumn(name = "agendamento_id"),
+        inverseJoinColumns = @JoinColumn(name = "servico_id")
+    )
+    private List<ServicoEntity> servicos;
     
     @PrePersist
     protected void onCreate() {

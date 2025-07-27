@@ -10,9 +10,9 @@ public class ServicoDtoMapper {
         }
         return new ServicoDto(
             servico.getId(),
-            servico.getNome(),
-            servico.getPreco().toString(),
-            servico.getDuracaoMinutos()
+            servico.getNome() != null ? servico.getNome() : "",
+            servico.getPreco() != null ? servico.getPreco().toString() : "0.00",
+            servico.getDuracaoMinutos() != null ? servico.getDuracaoMinutos() : 0
         );
     }
 } 
