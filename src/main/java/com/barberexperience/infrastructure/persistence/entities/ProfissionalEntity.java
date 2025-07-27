@@ -51,7 +51,13 @@ public class ProfissionalEntity {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "barbearia_id", nullable = false)
+    
     private BarbeariaEntity barbearia;
+    
+    // ✅ NOVA RELAÇÃO COM USUÁRIO
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = true)
+    private UsuarioEntity usuario;
     
     // Relacionamento temporariamente removido para resolver erro de exclusão
     // @OneToMany(mappedBy = "profissional", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

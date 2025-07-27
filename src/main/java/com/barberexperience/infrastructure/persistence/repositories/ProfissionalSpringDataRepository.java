@@ -19,4 +19,6 @@ public interface ProfissionalSpringDataRepository extends JpaRepository<Profissi
     List<ProfissionalEntity> findByBarbeariaIdAndAtivo(Long barbeariaId, Boolean ativo);
     
     boolean existsByCpf(String cpf);
+    
+    Optional<ProfissionalEntity> findByUsuarioUsername(String username);
 } 

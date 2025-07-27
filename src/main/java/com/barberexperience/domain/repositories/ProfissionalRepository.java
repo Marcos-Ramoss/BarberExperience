@@ -11,4 +11,6 @@ public interface ProfissionalRepository {
     List<ProfissionalDomain> findAll();
     ProfissionalDomain save(ProfissionalDomain profissional);
     void deleteById(Long id);
+    
+    Optional<ProfissionalDomain> findByUsuarioUsername(String username);
 } 

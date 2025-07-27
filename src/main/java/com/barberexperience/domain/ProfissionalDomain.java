@@ -22,6 +22,7 @@ public class ProfissionalDomain {
     private String telefone;
     private String email;
     private BarbeariaDomain barbearia;
+    private UsuarioDomain usuario;
 
     @Default
     private List<Especialidade> especialidades = new ArrayList<>();
@@ -70,6 +71,16 @@ public class ProfissionalDomain {
             throw new IllegalArgumentException("Barbearia não pode ser nula.");
         }
         this.barbearia = barbearia;
+    }
+    
+    /**
+     * Associa o profissional a um usuário.
+     */
+    public void associarUsuario(UsuarioDomain usuario) {
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuário não pode ser nulo.");
+        }
+        this.usuario = usuario;
     }
 
     /**

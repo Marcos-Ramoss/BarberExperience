@@ -42,4 +42,11 @@ public class ProfissionalJpaRepository implements ProfissionalRepository {
     public void deleteById(Long id) {
         springDataRepository.deleteById(id);
     }
+    
+    // ✅ NOVO MÉTODO
+    @Override
+    public Optional<ProfissionalDomain> findByUsuarioUsername(String username) {
+        return springDataRepository.findByUsuarioUsername(username)
+                .map(mapper::toDomain);
+    }
 } 

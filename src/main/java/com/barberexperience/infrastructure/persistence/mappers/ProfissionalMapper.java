@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class ProfissionalMapper {
 
     private final BarbeariaMapper barbeariaMapper;
+    private final UsuarioMapper usuarioMapper;
 
     public ProfissionalDomain toDomain(ProfissionalEntity entity) {
         if (entity == null) {
@@ -28,6 +29,11 @@ public class ProfissionalMapper {
         
         if (entity.getBarbearia() != null) {
             profissional.associarBarbearia(barbeariaMapper.toDomain(entity.getBarbearia()));
+        }
+        
+        // ✅ MAPEAMENTO DO USUÁRIO
+        if (entity.getUsuario() != null) {
+            profissional.associarUsuario(usuarioMapper.toDomain(entity.getUsuario()));
         }
 
         return profissional;
@@ -48,6 +54,11 @@ public class ProfissionalMapper {
         
         if (profissional.getBarbearia() != null) {
             entity.setBarbearia(barbeariaMapper.toEntity(profissional.getBarbearia()));
+        }
+        
+        // ✅ MAPEAMENTO DO USUÁRIO
+        if (profissional.getUsuario() != null) {
+            entity.setUsuario(usuarioMapper.toEntity(profissional.getUsuario()));
         }
 
         return entity;
